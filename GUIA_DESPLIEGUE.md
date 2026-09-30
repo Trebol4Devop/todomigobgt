@@ -1,22 +1,22 @@
-# 🚀 Guía Oficial de Despliegue de TODOMIGOB
+#  Guía Oficial de Despliegue de TODOMIGOBGT
 
-Esta guía documenta paso a paso la arquitectura y el procedimiento de despliegue de todos los componentes que conforman la plataforma **TODOMIGOB**:
+Esta guía documenta paso a paso la arquitectura y el procedimiento de despliegue de todos los componentes que conforman la plataforma **TODOMIGOBGT**:
 1. **Frontend Web & CDN:** Astro + TailwindCSS desplegado en **Cloudflare Workers & R2**.
 2. **Backend 1 - News Pipeline & IA:** Scraper y procesamiento DeepSeek en **Docker (Raspberry Pi 4 ARM64)** sincronizado con **Cloudflare R2**.
 3. **Backend 2 - Suscripciones & Notificaciones:** Servidor API REST en **Python 3**, base de datos **SQLite WAL** y despachador **SMTP** en **Raspberry Pi 4** expuesto vía **Tailscale**.
 
 ---
 
-## 📐 1. Arquitectura General del Sistema
+##  1. Arquitectura General del Sistema
 
 ```mermaid
 flowchart TD
-    subgraph Cloudflare["☁️ Cloudflare Network"]
-        CF_Worker["Cloudflare Worker / Pages (todomigobgt)"]
+    subgraph Cloudflare[" Cloudflare Network"]
+        CF_Worker["Cloudflare Worker / Pages (todomigobgtgt)"]
         CF_R2["Bucket R2 (noticias.json + imágenes)"]
     end
 
-    subgraph Raspi["🍓 Raspberry Pi 4 (100.101.158.66 / Tailscale)"]
+    subgraph Raspi[" Raspberry Pi 4 (100.101.158.66 / Tailscale)"]
         subgraph Pipeline["News Pipeline (Docker / Cron)"]
             Scrapers["Scrapers Gubernamentales (AGN, MINGOB, MSPAS, etc.)"]
             DeepSeek["Procesador IA (DeepSeek)"]
@@ -24,12 +24,12 @@ flowchart TD
         
         subgraph NotificationServer["API & Base de Datos (Puerto 8080/8081)"]
             PyAPI["Server REST (Python http.server)"]
-            SQLite[("SQLite: todomigob.db (WAL Mode)")]
+            SQLite[("SQLite: todomigobgt.db (WAL Mode)")]
             Mailer["Mailer SMTP (Gmail)"]
         end
     end
 
-    User["👤 Ciudadano (Navegador Web / Móvil)"] -->|"Visita sitio web"| CF_Worker
+    User[" Ciudadano (Navegador Web / Móvil)"] -->|"Visita sitio web"| CF_Worker
     CF_Worker -->|"Lee feed e imágenes"| CF_R2
     User -->|"Suscripción / Notificaciones"| PyAPI
     Scrapers -->|"1. Extrae y Categoriza"| DeepSeek
@@ -41,18 +41,18 @@ flowchart TD
 
 ---
 
-## 📋 2. Matriz de Componentes y Entornos
+##  2. Matriz de Componentes y Entornos
 
 | Componente | Tecnología | Destino de Despliegue | URL / Host de Producción |
 | :--- | :--- | :--- | :--- |
-| **Frontend Web** | Astro 5, Tailwind v4, TypeScript | Cloudflare Workers / Pages | `https://todomigobgt.<subdominio>.workers.dev` |
+| **Frontend Web** | Astro 5, Tailwind v4, TypeScript | Cloudflare Workers / Pages | `https://todomigobgtgt.<subdominio>.workers.dev` |
 | **Almacenamiento Multimedia** | Cloudflare R2 | Cloudflare Object Storage | `https://pub-b246f9594b0f4cb5960b8f6ec9f1ba2b.r2.dev/` |
 | **News Pipeline** | Node.js 20, TypeScript, Docker | Raspberry Pi 4 ARM64 (`cron`) | Servidor local `/home/trebol4devop/news-pipeline` |
 | **API & Suscripciones** | Python 3.12, SQLite3 | Raspberry Pi 4 (Systemd / Docker) | `https://trebol4devop.tail41b60f.ts.net` o `http://100.101.158.66:8081` |
 
 ---
 
-## 🌐 3. Despliegue del Frontend (Cloudflare Workers / Pages)
+##  3. Despliegue del Frontend (Cloudflare Workers / Pages)
 
 El frontend está desarrollado en Astro y empaquetado para correr como Cloudflare Worker sirviendo los activos estáticos y conectándose en tiempo real con el bucket Cloudflare R2.
 
@@ -87,7 +87,7 @@ PUBLIC_API_URL=https://trebol4devop.tail41b60f.ts.net
 4. **Verificar el archivo `wrangler.toml`:**
    Asegúrate de que la configuración mantenga el enlace al bucket R2:
    ```toml
-   name = "todomigobgt"
+   name = "todomigobgtgt"
    main = "./worker.js"
    compatibility_date = "2026-09-10"
 
@@ -97,12 +97,12 @@ PUBLIC_API_URL=https://trebol4devop.tail41b60f.ts.net
 
    [[r2_buckets]]
    binding = "DB"
-   bucket_name = "todomigobgt"
+   bucket_name = "todomigobgtgt"
    ```
 
 ---
 
-## 🍓 4. Despliegue de Backend 1: News Pipeline (Raspberry Pi)
+##  4. Despliegue de Backend 1: News Pipeline (Raspberry Pi)
 
 El pipeline de extracción de noticias es un proceso batch que se ejecuta de forma periódica para raspar fuentes ministeriales, estructurarlas mediante DeepSeek y subirlas a Cloudflare R2.
 
@@ -123,7 +123,7 @@ DEEPSEEK_MODEL=deepseek-chat
 S3_ENDPOINT=https://<account_id>.r2.cloudflarestorage.com
 R2_ACCESS_KEY_ID=tu_access_key_r2
 R2_SECRET_ACCESS_KEY=tu_secret_key_r2
-R2_BUCKET_NAME=todomigobgt
+R2_BUCKET_NAME=todomigobgtgt
 R2_PUBLIC_BASE_URL=https://pub-b246f9594b0f4cb5960b8f6ec9f1ba2b.r2.dev
 
 # Configuración de ejecución
@@ -154,24 +154,24 @@ LOG_LEVEL=info
 
 ---
 
-## 📬 5. Despliegue de Backend 2: API, Base de Datos & Notificaciones (`raspberry-pi`)
+##  5. Despliegue de Backend 2: API, Base de Datos & Notificaciones (`raspberry-pi`)
 
 Este servicio corre de forma continua en la Raspberry Pi. Expone los endpoints de suscripción de ciudadanos (`/api/users`), consulta de categorías y envío automático de correos (incluyendo el correo de bienvenida con las últimas noticias del bucket R2).
 
 ### Variables de Entorno (`.env`):
-En `/home/trebol4devop/todomigob-backend/.env` (o en la carpeta `raspberry-pi`):
+En `/home/trebol4devop/todomigobgt-backend/.env` (o en la carpeta `raspberry-pi`):
 
 ```ini
 PORT=8080
 HOST=0.0.0.0
-DB_PATH=todomigob.db
+DB_PATH=todomigobgt.db
 
 # Configuración SMTP Gmail
 SMTP_HOST=smtp.gmail.com
 SMTP_PORT=465
 SMTP_USER=trebol4devop@gmail.com
 SMTP_PASS=lykc jsej osgf ezee
-SMTP_FROM_NAME=TODOMIGOB Notificaciones Oficiales
+SMTP_FROM_NAME=TODOMIGOBGT Notificaciones Oficiales
 
 # Enlace al Frontend para los correos
 APP_URL=https://trebol4devop.tail41b60f.ts.net
@@ -182,18 +182,18 @@ R2_BUCKET_URL=https://pub-b246f9594b0f4cb5960b8f6ec9f1ba2b.r2.dev/noticias.json
 
 ### Opción A: Despliegue como Servicio Nativo `systemd` (Recomendado)
 
-1. **Crear archivo de servicio en `/etc/systemd/system/todomigob.service`:**
+1. **Crear archivo de servicio en `/etc/systemd/system/todomigobgt.service`:**
    ```ini
    [Unit]
-   Description=TODOMIGOB Notification & Database API Server
+   Description=TODOMIGOBGT Notification & Database API Server
    After=network.target
 
    [Service]
    Type=simple
    User=trebol4devop
-   WorkingDirectory=/home/trebol4devop/todomigob-backend
-   EnvironmentFile=/home/trebol4devop/todomigob-backend/.env
-   ExecStart=/usr/bin/python3 /home/trebol4devop/todomigob-backend/server.py
+   WorkingDirectory=/home/trebol4devop/todomigobgt-backend
+   EnvironmentFile=/home/trebol4devop/todomigobgt-backend/.env
+   ExecStart=/usr/bin/python3 /home/trebol4devop/todomigobgt-backend/server.py
    Restart=always
    RestartSec=5
 
@@ -204,14 +204,14 @@ R2_BUCKET_URL=https://pub-b246f9594b0f4cb5960b8f6ec9f1ba2b.r2.dev/noticias.json
 2. **Habilitar e Iniciar el Servicio:**
    ```bash
    sudo systemctl daemon-reload
-   sudo systemctl enable todomigob
-   sudo systemctl start todomigob
-   sudo systemctl status todomigob
+   sudo systemctl enable todomigobgt
+   sudo systemctl start todomigobgt
+   sudo systemctl status todomigobgt
    ```
 
 3. **Monitorear logs en tiempo real:**
    ```bash
-   journalctl -u todomigob -f
+   journalctl -u todomigobgt -f
    ```
 
 ---
@@ -233,7 +233,7 @@ Si prefieres usar contenedores para el servidor de notificaciones:
 
 ---
 
-## 🔒 6. Exposición de Red Segura con Tailscale
+##  6. Exposición de Red Segura con Tailscale
 
 Para que el frontend en Cloudflare pueda consumir la API que corre en la Raspberry Pi sin abrir puertos inseguros en el router residencial:
 
@@ -250,13 +250,13 @@ Para que el frontend en Cloudflare pueda consumir la API que corre en la Raspber
 
 ---
 
-## 🧪 7. Pruebas de Verificación Post-Despliegue
+##  7. Pruebas de Verificación Post-Despliegue
 
 ### 1. Verificar salud del Backend en Raspberry Pi:
 ```bash
 curl -I https://trebol4devop.tail41b60f.ts.net/api/health
 # Debe responder: HTTP/1.1 200 OK
-# {"status": "ok", "service": "todomigob-raspi", "db": "todomigob.db"}
+# {"status": "ok", "service": "todomigobgt-raspi", "db": "todomigobgt.db"}
 ```
 
 ### 2. Probar registro de ciudadano y envío de bienvenida:
@@ -279,11 +279,11 @@ curl -I https://pub-b246f9594b0f4cb5960b8f6ec9f1ba2b.r2.dev/noticias.json
 
 ---
 
-## 🆘 Troubleshooting y Preguntas Frecuentes
+##  Troubleshooting y Preguntas Frecuentes
 
 | Síntoma | Causa Probable | Solución |
 | :--- | :--- | :--- |
 | **Error CORS al suscribirse desde la web** | La URL configurada no coincide o falta encabezado OPTIONS. | Revisar `PUBLIC_API_URL` en el frontend y verificar que `server.py` responde en `do_OPTIONS` con cabeceras `Access-Control-Allow-Origin: *`. |
 | **Los correos no salen (`SMTPAuthenticationError`)** | La contraseña de aplicación de Gmail expiró o tiene espacios no permitidos. | Generar una nueva contraseña de aplicación en la cuenta de Google y actualizar `SMTP_PASS` en el `.env`. |
-| **Fallo en Cloudflare R2 (`403 Forbidden` o `SignatureDoesNotMatch`)** | Claves de API de Cloudflare R2 inválidas en el pipeline. | Regenerar el Token de API en Cloudflare Dashboard con permisos de *Object Read & Write* en el bucket `todomigobgt`. |
-| **Servicio caído en la Raspberry Pi tras reinicio** | El servicio systemd no estaba habilitado. | Ejecutar `sudo systemctl enable todomigob` para asegurar arranque automático al reiniciar la RasPi. |
+| **Fallo en Cloudflare R2 (`403 Forbidden` o `SignatureDoesNotMatch`)** | Claves de API de Cloudflare R2 inválidas en el pipeline. | Regenerar el Token de API en Cloudflare Dashboard con permisos de *Object Read & Write* en el bucket `todomigobgtgt`. |
+| **Servicio caído en la Raspberry Pi tras reinicio** | El servicio systemd no estaba habilitado. | Ejecutar `sudo systemctl enable todomigobgt` para asegurar arranque automático al reiniciar la RasPi. |

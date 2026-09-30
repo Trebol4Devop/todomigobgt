@@ -9,7 +9,7 @@ param (
 $ErrorActionPreference = "Stop"
 
 Write-Host "==========================================================" -ForegroundColor Cyan
-Write-Host " [DOCKER HUB] Publicador de Imagen TODOMIGOB (Windows)" -ForegroundColor Cyan
+Write-Host " [DOCKER HUB] Publicador de Imagen TODOMIGOBGT (Windows)" -ForegroundColor Cyan
 Write-Host "==========================================================" -ForegroundColor Cyan
 
 if (-not $DockerUser) {
@@ -21,7 +21,7 @@ if (-not $DockerUser) {
     exit 1
 }
 
-$ImageName = "todomigob-service"
+$ImageName = "todomigobgt-service"
 $FullImage = "${DockerUser}/${ImageName}:${Tag}"
 $LatestImage = "${DockerUser}/${ImageName}:latest"
 
@@ -33,7 +33,7 @@ Write-Host "[1/3] Iniciando sesion en Docker Hub..." -ForegroundColor Green
 docker login
 
 # Configurar buildx
-$BuilderName = "todomigob-builder"
+$BuilderName = "todomigobgt-builder"
 $builderExists = docker buildx ls | Select-String -Pattern $BuilderName
 if (-not $builderExists) {
     Write-Host "[2/3] Creando builder de buildx para soporte ARM64 (Raspberry Pi)..." -ForegroundColor Green
@@ -54,5 +54,5 @@ docker buildx build `
 Write-Host "`n==========================================================" -ForegroundColor Cyan
 Write-Host "[EXITO] Imagen subida exitosamente a Docker Hub!" -ForegroundColor Green
 Write-Host "`n[DESPLIEGUE] Para descargar y correr en tu Raspberry Pi 4:" -ForegroundColor Yellow
-Write-Host "docker run -d --name todomigob-service -p 8080:8080 -v ./data:/app/data -e SMTP_USER=tu_correo@gmail.com -e SMTP_PASS='lykc jsej osgf ezee' $FullImage" -ForegroundColor White
+Write-Host "docker run -d --name todomigobgt-service -p 8080:8080 -v ./data:/app/data -e SMTP_USER=tu_correo@gmail.com -e SMTP_PASS='lykc jsej osgf ezee' $FullImage" -ForegroundColor White
 Write-Host "==========================================================" -ForegroundColor Cyan

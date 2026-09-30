@@ -14,7 +14,7 @@ export function renderNewsHtml(userName: string, news: NewsItem): string {
   const title = news.content.es.title;
   const summary = news.content.es.summary;
   const citizenAction = news.content.es.citizenAction;
-  const originalUrl = news.originalUrl || "https://todomigob.gob.gt";
+  const originalUrl = news.originalUrl || "https://todomigobgt.gob.gt";
 
   const urgentBanner = news.urgent
     ? `

@@ -163,7 +163,7 @@ class TestTodoMiGobMailer(unittest.TestCase):
         # Verificar cabecera User-Agent en la petición
         called_req = mock_urlopen.call_args[0][0]
         self.assertIn("User-agent", called_req.headers)
-        self.assertIn("TodoMiGob", called_req.headers["User-agent"])
+        self.assertIn("TodoMiGobGT", called_req.headers["User-agent"])
 
     @patch("urllib.request.urlopen", side_effect=Exception("Network error 403"))
     def test_fetch_news_from_r2_fallback_on_network_failure(self, mock_urlopen):

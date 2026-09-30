@@ -16,7 +16,7 @@ export const defaultLang: LanguageKey = 'es';
 
 export const ui = {
   es: {
-    'header.title': 'TODOMIGOB',
+    'header.title': 'TODOMIGOBGT',
     'header.subtitle': 'Este es un sitio oficial del gobierno',
     'footer.nonprofit': 'Este es un sitio sin fines de lucro',
     'footer.copyright': '© 2024 - Todos los Derechos Reservados',
@@ -65,7 +65,7 @@ export const ui = {
     'notif.error.categories': 'Selecciona al menos una categoría de interés.',
   },
   kch: {
-    'header.title': 'TODOMIGOB',
+    'header.title': 'TODOMIGOBGT',
     'header.subtitle': 'Wa\' jun uq\'ijil k\'olib\'al rech ri qatinamit',
     'footer.nonprofit': 'Wa\' k\'olib\'al man rech ta ch\'akik pwaq',
     'footer.copyright': '© 2024 - Ronojel ya\'talik',

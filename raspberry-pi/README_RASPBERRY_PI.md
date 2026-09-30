@@ -1,10 +1,10 @@
-# TODOMIGOB · Base de Datos y Notificaciones para Raspberry Pi 4
+# TODOMIGOBGT · Base de Datos y Notificaciones para Raspberry Pi 4
 
 Sistema de almacenamiento de ciudadanos, preferencias de noticias y despachador de notificaciones por correo electrónico oficial diseñado para desplegarse de manera ultra-sencilla y con consumo mínimo de recursos en una **Raspberry Pi 4**.
 
 ---
 
-## 📌 Características Principales
+##  Características Principales
 
 - **Base de Datos SQLite 3 Integrada:**
   - 0 configuración de servidores pesados.
@@ -19,7 +19,7 @@ Sistema de almacenamiento de ciudadanos, preferencias de noticias y despachador 
     - **Servidor:** `smtp.gmail.com`
     - **Puerto:** `465` (SSL) o `587` (TLS)
     - **Contraseña de aplicación:** `lykc jsej osgf ezee`
-    - **Nombre de aplicación:** `todomigob`
+    - **Nombre de aplicación:** `todomigobgt`
   - Plantilla oficial con diseño cívico guatemalteco (bandera azul-blanco-azul `#4997D0`, títulos, resumen, acción ciudadana destacada y enlace directo).
 
 - **Interfaz Web & API REST:**
@@ -29,7 +29,7 @@ Sistema de almacenamiento de ciudadanos, preferencias de noticias y despachador 
 
 ---
 
-## 🗄️ Modelo de Datos (SQLite)
+##  Modelo de Datos (SQLite)
 
 ```sql
 -- Usuarios
@@ -84,7 +84,7 @@ CREATE TABLE notification_logs (
 
 ---
 
-## 🚀 Despliegue en Raspberry Pi 4
+##  Despliegue en Raspberry Pi 4
 
 Tienes 3 métodos fáciles para desplegarlo en tu Raspberry Pi 4:
 
@@ -109,12 +109,12 @@ python3 server.py
 Para que el servidor se inicie automáticamente cada vez que enciendas la Raspberry Pi:
 
 ```bash
-sudo cp todomigob.service /etc/systemd/system/
+sudo cp todomigobgt.service /etc/systemd/system/
 sudo systemctl daemon-reload
-sudo systemctl enable --now todomigob.service
+sudo systemctl enable --now todomigobgt.service
 
 # Verificar estado
-sudo systemctl status todomigob.service
+sudo systemctl status todomigobgt.service
 ```
 
 ### Método 3: Con Docker / Docker Compose
@@ -132,7 +132,7 @@ docker compose up -d
 Copia o edita el archivo `.env`:
 
 ```ini
-DB_PATH=todomigob.db
+DB_PATH=todomigobgt.db
 HOST=0.0.0.0
 PORT=8080
 
@@ -141,15 +141,15 @@ SMTP_HOST=smtp.gmail.com
 SMTP_PORT=465
 SMTP_USER=tu_correo_gmail@gmail.com
 SMTP_PASS=lykc jsej osgf ezee
-SMTP_APP_NAME=todomigob
-SENDER_NAME=TODOMIGOB Alertas Ciudadanas
+SMTP_APP_NAME=todomigobgt
+SENDER_NAME=TODOMIGOBGT Alertas Ciudadanas
 ```
 
 > **Nota:** Cambia `SMTP_USER` por la dirección de Gmail desde la que se generó la contraseña de aplicación `lykc jsej osgf ezee`.
 
 ---
 
-## 💻 Uso desde la Línea de Comandos (CLI)
+##  Uso desde la Línea de Comandos (CLI)
 
 Puedes administrar todo desde SSH en la Raspberry Pi con `manage.py`:
 
@@ -188,7 +188,7 @@ python3 manage.py stats
 
 ---
 
-## 🌐 API REST y Webhooks
+##  API REST y Webhooks
 
 El servidor expone los siguientes endpoints HTTP en el puerto `8080`:
 
@@ -222,7 +222,7 @@ curl -X POST http://localhost:8080/api/news/dispatch \
     "id": "noticia-2026-001",
     "categoryId": "health_wellbeing",
     "source": "MSPAS",
-    "originalUrl": "https://todomigob.gob.gt/noticias/vacunacion",
+    "originalUrl": "https://todomigobgt.gob.gt/noticias/vacunacion",
     "urgent": false,
     "content": {
       "es": {

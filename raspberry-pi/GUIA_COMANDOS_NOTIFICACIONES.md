@@ -1,4 +1,4 @@
-# Guía de Comandos y Configuración: Envío de Alertas TODOMIGOB
+# Guía de Comandos y Configuración: Envío de Alertas TODOMIGOBGT
 
 Esta guía contiene la configuración de variables de entorno (`.env`) y todos los comandos necesarios para consultar usuarios y despachar noticias a todos los ciudadanos suscritos según su categoría, considerando que los comandos se ejecutan desde la máquina host o desde un **contenedor Docker independiente**.
 
@@ -10,13 +10,13 @@ Copia este contenido en tu archivo `.env` en la máquina donde corre el servicio
 
 ```ini
 # ==========================================
-# CONFIGURACIÓN DEL SERVIDOR TODOMIGOB
+# CONFIGURACIÓN DEL SERVIDOR TODOMIGOBGT
 # ==========================================
-DOCKER_IMAGE=spumapl/todomigob-service:latest
+DOCKER_IMAGE=spumapl/todomigobgt-service:latest
 HOST=0.0.0.0
 PORT=8080
 EXTERNAL_PORT=8081
-DB_PATH=/app/data/todomigob.db
+DB_PATH=/app/data/todomigobgt.db
 
 # ==========================================
 # CREDENCIALES SMTP GMAIL (OFICIALES)
@@ -25,16 +25,16 @@ SMTP_HOST=smtp.gmail.com
 SMTP_PORT=465
 SMTP_USER=trebol4devop@gmail.com
 SMTP_PASS="lykc jsej osgf ezee"
-SMTP_APP_NAME=todomigob
-SENDER_NAME="TODOMIGOB Alertas Ciudadanas"
+SMTP_APP_NAME=todomigobgt
+SENDER_NAME="TODOMIGOBGT Alertas Ciudadanas"
 
 # ==========================================
 # URL DE LA API PARA DOCKERS CLIENTES / SCRIPTS
 # ==========================================
 # Si ejecutas desde la misma máquina donde corre el contenedor:
-TODOMIGOB_API_URL=http://localhost:8081/api
+TODOMIGOBGT_API_URL=http://localhost:8081/api
 # Si ejecutas desde otra máquina en la misma red local:
-# TODOMIGOB_API_URL=http://<IP_DE_LA_MAQUINA>:8081/api
+# TODOMIGOBGT_API_URL=http://<IP_DE_LA_MAQUINA>:8081/api
 ```
 
 ---
@@ -44,16 +44,16 @@ TODOMIGOB_API_URL=http://localhost:8081/api
 Para asegurarte de que el contenedor esté corriendo con el correo y contraseña correctos en el puerto `8081`:
 
 ```bash
-docker rm -f todomigob-service
+docker rm -f todomigobgt-service
 
 docker run -d \
-  --name todomigob-service \
+  --name todomigobgt-service \
   --restart unless-stopped \
   -p 8081:8080 \
   -v ./data:/app/data \
   -e SMTP_USER="trebol4devop@gmail.com" \
   -e SMTP_PASS="lykc jsej osgf ezee" \
-  spumapl/todomigob-service:latest
+  spumapl/todomigobgt-service:latest
 ```
 
 ---
@@ -72,7 +72,7 @@ curl -s http://localhost:8081/api/users
 
 ### Opción C: Mediante la herramienta CLI interna del contenedor (formato tabla)
 ```bash
-docker exec -it todomigob-service python manage.py list-users
+docker exec -it todomigobgt-service python manage.py list-users
 ```
 
 ---
@@ -88,7 +88,7 @@ cat << 'EOF' > noticias_todas_categorias.json
     "id": "noticia-cat-educacion-01",
     "categoryId": "education_scholarships",
     "urgent": false,
-    "originalUrl": "https://todomigob.gob.gt/educacion/becas",
+    "originalUrl": "https://todomigobgt.gob.gt/educacion/becas",
     "content": {
       "es": {
         "title": "Convocatoria Nacional de Becas Universitarias 2026",
@@ -101,7 +101,7 @@ cat << 'EOF' > noticias_todas_categorias.json
     "id": "noticia-cat-salud-01",
     "categoryId": "health_wellbeing",
     "urgent": false,
-    "originalUrl": "https://todomigob.gob.gt/salud/jornadas",
+    "originalUrl": "https://todomigobgt.gob.gt/salud/jornadas",
     "content": {
       "es": {
         "title": "Jornada Integral de Salud y Vacunación",
@@ -114,7 +114,7 @@ cat << 'EOF' > noticias_todas_categorias.json
     "id": "noticia-cat-social-01",
     "categoryId": "social_programs",
     "urgent": false,
-    "originalUrl": "https://todomigob.gob.gt/desarrollo-social",
+    "originalUrl": "https://todomigobgt.gob.gt/desarrollo-social",
     "content": {
       "es": {
         "title": "Actualización del Padrón de Transferencias Monetarias del Bono Social",
@@ -127,7 +127,7 @@ cat << 'EOF' > noticias_todas_categorias.json
     "id": "noticia-cat-tramites-01",
     "categoryId": "procedures_services",
     "urgent": false,
-    "originalUrl": "https://todomigob.gob.gt/tramites/licencias",
+    "originalUrl": "https://todomigobgt.gob.gt/tramites/licencias",
     "content": {
       "es": {
         "title": "Digitalización de Solicitudes para Licencias Sanitarias",
@@ -140,7 +140,7 @@ cat << 'EOF' > noticias_todas_categorias.json
     "id": "noticia-cat-seguridad-01",
     "categoryId": "security_alerts",
     "urgent": true,
-    "originalUrl": "https://todomigob.gob.gt/conred/alertas",
+    "originalUrl": "https://todomigobgt.gob.gt/conred/alertas",
     "content": {
       "es": {
         "title": "Aviso Meteorológico: Descenso de Temperaturas y Vientos Fuertes",
@@ -153,7 +153,7 @@ cat << 'EOF' > noticias_todas_categorias.json
     "id": "noticia-cat-empleo-01",
     "categoryId": "employment_development",
     "urgent": false,
-    "originalUrl": "https://todomigob.gob.gt/mintrab/ferias",
+    "originalUrl": "https://todomigobgt.gob.gt/mintrab/ferias",
     "content": {
       "es": {
         "title": "Feria Nacional de Empleo y Fondos para Emprendimiento",

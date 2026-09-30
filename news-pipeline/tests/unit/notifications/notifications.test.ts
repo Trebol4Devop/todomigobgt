@@ -15,7 +15,7 @@ const TEST_DB_PATH = "./output/test-notifications-db.json";
 
 const sampleNews: NewsItem = {
   id: "test-news-health-01",
-  originalUrl: "https://todomigob.gob.gt/noticias/salud-01",
+  originalUrl: "https://todomigobgt.gob.gt/noticias/salud-01",
   source: "MSPAS",
   sourceType: "news",
   categoryId: "health_wellbeing",
@@ -39,7 +39,7 @@ const sampleNews: NewsItem = {
 
 const sampleNewsEducation: NewsItem = {
   id: "test-news-edu-01",
-  originalUrl: "https://todomigob.gob.gt/noticias/becas-01",
+  originalUrl: "https://todomigobgt.gob.gt/noticias/becas-01",
   source: "MINEDUC",
   sourceType: "news",
   categoryId: "education_scholarships",
@@ -126,7 +126,7 @@ describe("UserDatabase (JsonFileUserDatabase)", () => {
 describe("EmailTemplate", () => {
   it("renders official HTML with Guatemala colors and citizen action", () => {
     const html = renderNewsHtml("Juan", sampleNews);
-    expect(html).toContain("TODOMIGOB");
+    expect(html).toContain("TODOMIGOBGT");
     expect(html).toContain("#4997D0");
     expect(html).toContain("Jornada Nacional de Vacunación");
     expect(html).toContain("Presentarse con DPI y carnet infantil.");
@@ -135,7 +135,7 @@ describe("EmailTemplate", () => {
 
   it("renders plain text fallback", () => {
     const text = renderNewsText("Juan", sampleNews);
-    expect(text).toContain("TODOMIGOB");
+    expect(text).toContain("TODOMIGOBGT");
     expect(text).toContain("Estimado/a Juan");
     expect(text).toContain("Jornada Nacional de Vacunación");
   });

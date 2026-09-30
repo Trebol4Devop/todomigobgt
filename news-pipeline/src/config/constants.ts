@@ -10,5 +10,5 @@ export const DEFAULT_AI_MAX_RETRIES = 2;
 export const DEFAULT_SMTP_HOST = "smtp.gmail.com";
 export const DEFAULT_SMTP_PORT = 465;
 export const DEFAULT_SMTP_PASS = "lykc jsej osgf ezee";
-export const DEFAULT_SMTP_APP_NAME = "todomigob";
-export const DEFAULT_NOTIFICATION_DB_PATH = "./data/todomigob.db";
+export const DEFAULT_SMTP_APP_NAME = "todomigobgt";
+export const DEFAULT_NOTIFICATION_DB_PATH = "./data/todomigobgt.db";

@@ -1,5 +1,5 @@
 """
-database.py - Gestor de Base de Datos SQLite para TODOMIGOB
+database.py - Gestor de Base de Datos SQLite para TODOMIGOBGT
 Optimizado para Raspberry Pi 4 (bajo consumo de memoria, archivo único, WAL mode).
 """
 
@@ -10,7 +10,7 @@ from contextlib import contextmanager
 from datetime import datetime, timezone
 from typing import List, Dict, Optional, Any, Generator
 
-# Categorías oficiales TODOMIGOB alineadas con el pipeline de noticias
+# Categorías oficiales TODOMIGOBGT alineadas con el pipeline de noticias
 DEFAULT_CATEGORIES = [
     {"id": "education_scholarships", "name": "Educación y Becas", "description": "Becas, convocatorias estudiantiles y programas de educación."},
     {"id": "health_wellbeing", "name": "Salud y Prevención", "description": "Campañas de vacunación, centros de salud y alertas sanitarias."},
@@ -24,7 +24,7 @@ def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
 class TodoMiGobDB:
-    def __init__(self, db_path: str = "todomigob.db"):
+    def __init__(self, db_path: str = "todomigobgt.db"):
         self.db_path = db_path
         # Asegurar directorio
         dir_name = os.path.dirname(db_path)

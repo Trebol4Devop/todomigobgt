@@ -1,27 +1,27 @@
 version: "3.8"
 
 services:
-  todomigob-notifications:
-    # Si se define DOCKER_IMAGE en .env (ej. miusuario/todomigob-service:latest), la descargará de Docker Hub.
+  todomigobgt-notifications:
+    # Si se define DOCKER_IMAGE en .env (ej. miusuario/todomigobgt-service:latest), la descargará de Docker Hub.
     # Si no se define, se compilará localmente con el Dockerfile.
-    image: ${DOCKER_IMAGE:-todomigob-service:latest}
+    image: ${DOCKER_IMAGE:-todomigobgt-service:latest}
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: todomigob-service
+    container_name: todomigobgt-service
     restart: unless-stopped
     ports:
       - "8080:8080"
     environment:
       - HOST=0.0.0.0
       - PORT=8080
-      - DB_PATH=/app/data/todomigob.db
+      - DB_PATH=/app/data/todomigobgt.db
       - SMTP_HOST=smtp.gmail.com
       - SMTP_PORT=465
-      - SMTP_USER=${SMTP_USER:-todomigob.notificaciones@gmail.com}
+      - SMTP_USER=${SMTP_USER:-todomigobgt.notificaciones@gmail.com}
       - SMTP_PASS=${SMTP_PASS:-lykc jsej osgf ezee}
-      - SMTP_APP_NAME=todomigob
-      - SENDER_NAME=TODOMIGOB Alertas Ciudadanas
+      - SMTP_APP_NAME=todomigobgt
+      - SENDER_NAME=TODOMIGOBGT Alertas Ciudadanas
     volumes:
       - ./data:/app/data
     healthcheck:
