@@ -1,8 +1,8 @@
 # run.ps1 - Iniciar contenedor en Windows sin problemas de saltos de linea
 $ErrorActionPreference = "SilentlyContinue"
 
-$ContainerName = "todomigob-service"
-$Image = "spumapl/todomigob-service:latest"
+$ContainerName = "todomigobgtgt-service"
+$Image = "spumapl/todomigobgtgt-service:latest"
 
 Write-Host "Deteniendo contenedor anterior si existe..." -ForegroundColor Yellow
 docker rm -f $ContainerName
@@ -13,7 +13,7 @@ docker run -d `
   --name $ContainerName `
   --restart unless-stopped `
   -p 8080:8080 `
-  -v todomigob_data:/app/data `
+  -v todomigobgtgt_data:/app/data `
   -e SMTP_USER="alejandrovasq0803@gmail.com" `
   -e SMTP_PASS="lykc jsej osgf ezee" `
   $Image

@@ -1,11 +1,11 @@
 # Dockerfile optimizado para Raspberry Pi 4 (ARM64 / multi-arch)
 FROM python:3.12-alpine
 
-LABEL maintainer="TODOMIGOB Team"
-LABEL description="Base de datos y Servicio de Notificaciones TODOMIGOB para Raspberry Pi 4"
+LABEL maintainer="TODOMIGOBGT Team"
+LABEL description="Base de datos y Servicio de Notificaciones TODOMIGOBGT para Raspberry Pi 4"
 
 # Crear usuario sin privilegios para mayor seguridad
-RUN addgroup -S todomigob && adduser -S todomigob -G todomigob
+RUN addgroup -S todomigobgt && adduser -S todomigobgt -G todomigobgt
 
 WORKDIR /app
 
@@ -17,7 +17,7 @@ RUN mkdir -p /app/data
 
 ENV HOST=0.0.0.0
 ENV PORT=8080
-ENV DB_PATH=/app/data/todomigob.db
+ENV DB_PATH=/app/data/todomigobgt.db
 ENV PYTHONUNBUFFERED=1
 
 EXPOSE 8080

@@ -30,7 +30,7 @@ export class JsonFileUserDatabase implements UserDatabase {
   private readonly filePath: string;
   private cache: DatabaseFileSchema | null = null;
 
-  constructor(filePath: string = "./data/todomigob.json") {
+  constructor(filePath: string = "./data/todomigobgt.json") {
     this.filePath = filePath;
   }
 

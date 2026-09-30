@@ -15,7 +15,7 @@ export class MockEmailTransport implements EmailTransport {
 
   async send(message: EmailMessage): Promise<void> {
     const categoryName = getCategoryDisplayName(message.news.categoryId);
-    const subject = `[TODOMIGOB] ${categoryName}: ${message.news.content.es.title}`;
+    const subject = `[TODOMIGOBGT] ${categoryName}: ${message.news.content.es.title}`;
     this.sentMessages.push({
       to: message.to,
       subject,
@@ -35,7 +35,7 @@ export class NativeSmtpEmailTransport implements EmailTransport {
     this.config = {
       ...config,
       pass: config.pass.replace(/\s+/g, ""), // Limpiar espacios de la contraseña de app
-      senderName: config.senderName ?? "TODOMIGOB Alertas Ciudadanas",
+      senderName: config.senderName ?? "TODOMIGOBGT Alertas Ciudadanas",
     };
   }
 
@@ -45,7 +45,7 @@ export class NativeSmtpEmailTransport implements EmailTransport {
     }
 
     const categoryName = getCategoryDisplayName(message.news.categoryId);
-    const subject = `[TODOMIGOB] ${categoryName}: ${message.news.content.es.title}`;
+    const subject = `[TODOMIGOBGT] ${categoryName}: ${message.news.content.es.title}`;
     const html = renderNewsHtml(message.userName, message.news);
     const text = renderNewsText(message.userName, message.news);
 
@@ -116,7 +116,7 @@ export class NativeSmtpEmailTransport implements EmailTransport {
 
           if (step === 0 && code === 220) {
             step = 1;
-            sendCommand("EHLO todomigob.gob.gt");
+            sendCommand("EHLO todomigobgt.gob.gt");
           } else if (step === 1 && code === 250) {
             step = 2;
             sendCommand("AUTH LOGIN");

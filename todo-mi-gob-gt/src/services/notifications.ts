@@ -120,7 +120,7 @@ export async function saveNotificationSubscription(
       syncedWithDb = true;
     }
   } catch (err: any) {
-    console.warn(`[TODOMIGOB DB] No se pudo sincronizar inmediatamente con la BD (${getApiBaseUrl()}):`, err.message);
+    console.warn(`[TODOMIGOBGT DB] No se pudo sincronizar inmediatamente con la BD (${getApiBaseUrl()}):`, err.message);
     dbError = err.message;
   }
 

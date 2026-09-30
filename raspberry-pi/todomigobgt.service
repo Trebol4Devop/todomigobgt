@@ -1,12 +1,12 @@
 [Unit]
-Description=Servicio de Base de Datos y Notificaciones TODOMIGOB
+Description=Servicio de Base de Datos y Notificaciones TODOMIGOBGT
 After=network.target
 
 [Service]
 Type=simple
 User=pi
-WorkingDirectory=/home/pi/reto-8-trebol-4-devop-plus/raspberry-pi
-EnvironmentFile=/home/pi/reto-8-trebol-4-devop-plus/raspberry-pi/.env
+WorkingDirectory=/home/pi/todomigobgt/raspberry-pi
+EnvironmentFile=/home/pi/todomigobgt/raspberry-pi/.env
 ExecStart=/usr/bin/python3 server.py
 Restart=always
 RestartSec=5

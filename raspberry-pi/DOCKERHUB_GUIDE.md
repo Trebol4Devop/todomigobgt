@@ -1,17 +1,17 @@
-# Guía para Subir y Desplegar TODOMIGOB en Docker Hub
+# Guía para Subir y Desplegar TODOMIGOBGT en Docker Hub
 
 Esta guía te muestra cómo compilar y publicar la imagen de Docker en **Docker Hub** con soporte multi-arquitectura (**ARM64** para Raspberry Pi 4 y **AMD64** para PC/Servidores).
 
 ---
 
-## 🎯 Requisitos Previos
+##  Requisitos Previos
 
 1. Una cuenta activa en [Docker Hub](https://hub.docker.com/).
 2. Docker Desktop o Docker Engine instalado y en ejecución en tu computadora.
 
 ---
 
-## 🚀 Método 1: Usando los Scripts Automatizados (Más Fácil)
+##  Método 1: Usando los Scripts Automatizados (Más Fácil)
 
 ### En Windows (PowerShell):
 Abre una terminal de PowerShell dentro de la carpeta `raspberry-pi` y ejecuta:
@@ -36,7 +36,7 @@ El script se encargará automáticamente de:
 
 ---
 
-## 🛠️ Método 2: Comandos Manuales Paso a Paso
+##  Método 2: Comandos Manuales Paso a Paso
 
 Si prefieres ejecutar los comandos manualmente:
 
@@ -50,7 +50,7 @@ docker login
 La Raspberry Pi 4 utiliza la arquitectura **ARM64**. Para que la imagen funcione tanto en tu PC como en la Raspberry Pi, utiliza `buildx`:
 
 ```bash
-docker buildx create --name todomigob-builder --use
+docker buildx create --name todomigobgt-builder --use
 docker buildx inspect --bootstrap
 ```
 
@@ -60,13 +60,13 @@ Reemplaza `TU_USUARIO` por tu usuario de Docker Hub:
 ```bash
 docker buildx build \
   --platform linux/amd64,linux/arm64 \
-  -t TU_USUARIO/todomigob-service:latest \
+  -t TU_USUARIO/todomigobgt-service:latest \
   --push .
 ```
 
 ---
 
-## 🤖 Método 3: Publicación Automática con GitHub Actions
+##  Método 3: Publicación Automática con GitHub Actions
 
 Ya se configuró el flujo de trabajo en [`.github/workflows/docker-publish.yml`](file:///C:/Users/HP/Documents/Progra/reto-8-trebol-4-devop-plus/.github/workflows/docker-publish.yml).
 
@@ -79,26 +79,26 @@ Para activarlo:
 
 ---
 
-## 🍓 ¿Cómo Desplegar la Imagen en la Raspberry Pi 4?
+##  ¿Cómo Desplegar la Imagen en la Raspberry Pi 4?
 
 Una vez publicada en Docker Hub, en tu Raspberry Pi 4 solo necesitas ejecutar:
 
 ### Opción A: Con `docker run` directo
 ```bash
 docker run -d \
-  --name todomigob-service \
+  --name todomigobgt-service \
   --restart unless-stopped \
   -p 8080:8080 \
   -v ./data:/app/data \
   -e SMTP_USER=tu_correo@gmail.com \
   -e SMTP_PASS="lykc jsej osgf ezee" \
-  TU_USUARIO/todomigob-service:latest
+  TU_USUARIO/todomigobgt-service:latest
 ```
 
 ### Opción B: Con `docker-compose.yml`
 Edita el archivo `.env` en tu Raspberry Pi agregando:
 ```ini
-DOCKER_IMAGE=TU_USUARIO/todomigob-service:latest
+DOCKER_IMAGE=TU_USUARIO/todomigobgt-service:latest
 SMTP_USER=tu_correo@gmail.com
 ```
 

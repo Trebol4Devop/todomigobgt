@@ -1,5 +1,5 @@
 """
-server.py - Servidor Web y API REST de Suscripciones y Notificaciones TODOMIGOB
+server.py - Servidor Web y API REST de Suscripciones y Notificaciones TODOMIGOBGT
 Diseñado para correr en Raspberry Pi 4 con CERO dependencias externas (usa Python http.server estándar).
 Incluye portal web para ciudadanos y panel de administración.
 """
@@ -16,9 +16,9 @@ from mailer import TodoMiGobMailer, DEFAULT_APP_NAME
 from dispatcher import NotificationDispatcher
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
-logger = logging.getLogger("todomigob.server")
+logger = logging.getLogger("todomigobgt.server")
 
-DB_PATH = os.getenv("DB_PATH", "todomigob.db")
+DB_PATH = os.getenv("DB_PATH", "todomigobgt.db" if os.path.exists("todomigobgt.db") else "todomigob.db")
 PORT = int(os.getenv("PORT", "8080"))
 HOST = os.getenv("HOST", "0.0.0.0")
 
@@ -31,7 +31,7 @@ HTML_PORTAL = """<!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TODOMIGOB - Notificaciones Oficiales de Guatemala</title>
+    <title>TODOMIGOBGT - Notificaciones Oficiales de Guatemala</title>
     <style>
         :root {
             --primary: #4997D0;
@@ -102,16 +102,16 @@ HTML_PORTAL = """<!DOCTYPE html>
     </div>
     
     <header>
-        <h1>TODOMIGOB</h1>
+        <h1>TODOMIGOBGT</h1>
         <p>Sistema de Alertas y Suscripciones Ciudadanas · Raspberry Pi 4 Edition</p>
     </header>
 
     <div class="container">
         <div class="tabs">
-            <button class="tab-btn active" onclick="showTab('subscribe')">🔔 Registro de Ciudadano</button>
-            <button class="tab-btn" onclick="showTab('users'); loadUsers();">👥 Usuarios Registrados</button>
-            <button class="tab-btn" onclick="showTab('logs'); loadLogs();">📜 Historial de Notificaciones</button>
-            <button class="tab-btn" onclick="showTab('test')">🧪 Probar Correo SMTP</button>
+            <button class="tab-btn active" onclick="showTab('subscribe')">Registro de Ciudadano</button>
+            <button class="tab-btn" onclick="showTab('users'); loadUsers();">Usuarios Registrados</button>
+            <button class="tab-btn" onclick="showTab('logs'); loadLogs();">Historial de Notificaciones</button>
+            <button class="tab-btn" onclick="showTab('test')">Probar Correo SMTP</button>
         </div>
 
         <div id="alertBox" class="alert"></div>
@@ -199,7 +199,7 @@ HTML_PORTAL = """<!DOCTYPE html>
         </div>
 
         <div class="footer-note">
-            Servidor TODOMIGOB activo en Raspberry Pi 4 · Base de Datos SQLite · Puerto 8080
+            Servidor TODOMIGOBGT activo en Raspberry Pi 4 · Base de Datos SQLite · Puerto 8080
         </div>
     </div>
 
@@ -419,7 +419,7 @@ class TodoMiGobRequestHandler(BaseHTTPRequestHandler):
         if path in ("/", "/index.html"):
             self._send_html(200, HTML_PORTAL)
         elif path == "/api/health":
-            self._send_json(200, {"status": "ok", "service": "todomigob-raspi", "db": DB_PATH})
+            self._send_json(200, {"status": "ok", "service": "todomigobgt-raspi", "db": DB_PATH})
         elif path == "/api/categories":
             self._send_json(200, db.get_categories())
         elif path == "/api/users":
@@ -495,13 +495,13 @@ class TodoMiGobRequestHandler(BaseHTTPRequestHandler):
             mock_news = {
                 "id": "test-news-welcome",
                 "categoryId": "procedures_services",
-                "source": "TODOMIGOB",
-                "originalUrl": "https://todomigob.gob.gt",
+                "source": "TODOMIGOBGT",
+                "originalUrl": "https://todomigobgt.gob.gt",
                 "urgent": False,
                 "content": {
                     "es": {
-                        "title": "Verificación de Notificaciones TODOMIGOB en Raspberry Pi",
-                        "summary": "Este es un correo de prueba enviado automáticamente desde el servidor TODOMIGOB en tu Raspberry Pi 4.",
+                        "title": "Verificación de Notificaciones TODOMIGOBGT en Raspberry Pi",
+                        "summary": "Este es un correo de prueba enviado automáticamente desde el servidor TODOMIGOBGT en tu Raspberry Pi 4.",
                         "citizenAction": "No se requiere ninguna acción adicional. Tu conexión SMTP está funcionando correctamente."
                     }
                 }
@@ -539,7 +539,7 @@ def run():
     server_address = (HOST, PORT)
     httpd = HTTPServer(server_address, TodoMiGobRequestHandler)
     print("===========================================================")
-    print("[TODOMIGOB] Servidor iniciado para Raspberry Pi 4")
+    print("[TODOMIGOBGT] Servidor iniciado para Raspberry Pi 4")
     print(f"[HTTP] Interfaz Web: http://localhost:{PORT} (o la IP de tu Raspi)")
     print(f"[DB]   Base de Datos: {os.path.abspath(DB_PATH)}")
     print(f"[SMTP] Host: {mailer.smtp_host}:{mailer.smtp_port}")

@@ -3,7 +3,7 @@
     "id": "noticia-cat-educacion-01",
     "categoryId": "education_scholarships",
     "urgent": false,
-    "originalUrl": "https://todomigob.gob.gt/educacion/becas",
+    "originalUrl": "https://todomigobgt.gob.gt/educacion/becas",
     "content": {
       "es": {
         "title": "Convocatoria Nacional de Becas Universitarias 2026",
@@ -16,7 +16,7 @@
     "id": "noticia-cat-salud-01",
     "categoryId": "health_wellbeing",
     "urgent": false,
-    "originalUrl": "https://todomigob.gob.gt/salud/jornadas",
+    "originalUrl": "https://todomigobgt.gob.gt/salud/jornadas",
     "content": {
       "es": {
         "title": "Jornada Integral de Salud y Vacunación",
@@ -29,7 +29,7 @@
     "id": "noticia-cat-social-01",
     "categoryId": "social_programs",
     "urgent": false,
-    "originalUrl": "https://todomigob.gob.gt/desarrollo-social",
+    "originalUrl": "https://todomigobgt.gob.gt/desarrollo-social",
     "content": {
       "es": {
         "title": "Actualización del Padrón de Transferencias Monetarias del Bono Social",
@@ -42,7 +42,7 @@
     "id": "noticia-cat-tramites-01",
     "categoryId": "procedures_services",
     "urgent": false,
-    "originalUrl": "https://todomigob.gob.gt/tramites/licencias",
+    "originalUrl": "https://todomigobgt.gob.gt/tramites/licencias",
     "content": {
       "es": {
         "title": "Digitalización de Solicitudes para Licencias Sanitarias",
@@ -55,7 +55,7 @@
     "id": "noticia-cat-seguridad-01",
     "categoryId": "security_alerts",
     "urgent": true,
-    "originalUrl": "https://todomigob.gob.gt/conred/alertas",
+    "originalUrl": "https://todomigobgt.gob.gt/conred/alertas",
     "content": {
       "es": {
         "title": "Aviso Meteorológico: Descenso de Temperaturas y Vientos Fuertes",
@@ -68,7 +68,7 @@
     "id": "noticia-cat-empleo-01",
     "categoryId": "employment_development",
     "urgent": false,
-    "originalUrl": "https://todomigob.gob.gt/mintrab/ferias",
+    "originalUrl": "https://todomigobgt.gob.gt/mintrab/ferias",
     "content": {
       "es": {
         "title": "Feria Nacional de Empleo y Fondos para Emprendimiento",

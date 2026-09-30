@@ -1,6 +1,6 @@
 """
-mailer.py - Servicio de Notificaciones por Correo Electrónico para TODOMIGOB
-Soporta servidor SMTP Gmail con contraseña de aplicación oficial ('todomigob').
+mailer.py - Servicio de Notificaciones por Correo Electrónico para TODOMIGOBGT
+Soporta servidor SMTP Gmail con contraseña de aplicación oficial ('todomigobgt').
 Diseño oficial con la bandera de Guatemala (#4997D0), responsive para móviles y fallback texto plano.
 """
 
@@ -13,13 +13,13 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from typing import Dict, Any, Optional, List
 
-logger = logging.getLogger("todomigob.mailer")
+logger = logging.getLogger("todomigobgt.mailer")
 
 # Configuración por defecto solicitada por el usuario
 DEFAULT_SMTP_HOST = "smtp.gmail.com"
 DEFAULT_SMTP_PORT = 465
 DEFAULT_SMTP_PASS = "lykc jsej osgf ezee".replace(" ", "")
-DEFAULT_APP_NAME = "todomigob"
+DEFAULT_APP_NAME = "todomigobgt"
 
 # Endpoint oficial de noticias publicado en Cloudflare R2 por el news-pipeline
 DEFAULT_R2_NOTICIAS_URL = "https://pub-b246f9594b0f4cb5960b8f6ec9f1ba2b.r2.dev/noticias.json"
@@ -40,7 +40,7 @@ class TodoMiGobMailer:
         smtp_port: Optional[int] = None,
         smtp_user: Optional[str] = None,
         smtp_pass: Optional[str] = None,
-        sender_name: str = "TODOMIGOB Alertas Ciudadanas",
+        sender_name: str = "TODOMIGOBGT Alertas Ciudadanas",
         r2_url: Optional[str] = None
     ):
         self.smtp_host = smtp_host or os.getenv("SMTP_HOST", DEFAULT_SMTP_HOST)
@@ -54,7 +54,7 @@ class TodoMiGobMailer:
 
     def render_news_html(self, user_name: str, news: Dict[str, Any], category_name: str) -> str:
         """
-        Genera el correo HTML con la identidad gráfica oficial de TODOMIGOB:
+        Genera el correo HTML con la identidad gráfica oficial de TODOMIGOBGT:
         - Banderín de Guatemala (#4997D0 / #FFFFFF / #4997D0)
         - Encabezado oficial del gobierno
         - Título, resumen y Acción Ciudadana
@@ -64,7 +64,7 @@ class TodoMiGobMailer:
         title = content_es.get("title", news.get("title", "Nueva actualización importante"))
         summary = content_es.get("summary", news.get("summary", "Se ha publicado información de tu interés en el portal."))
         citizen_action = content_es.get("citizenAction", news.get("citizenAction", ""))
-        original_url = news.get("originalUrl", "https://todomigob.gob.gt")
+        original_url = news.get("originalUrl", "https://todomigobgt.gob.gt")
         is_urgent = news.get("urgent", False)
 
         urgent_banner = ""
@@ -208,7 +208,7 @@ class TodoMiGobMailer:
 
         msg = MIMEMultipart("alternative")
         msg["Subject"] = subject
-        sender_address = self.smtp_user if self.smtp_user else "notificaciones@todomigob.gob.gt"
+        sender_address = self.smtp_user if self.smtp_user else "notificaciones@todomigobgt.gob.gt"
         msg["From"] = f"{self.sender_name} <{sender_address}>"
         msg["To"] = to_email
 
@@ -242,7 +242,7 @@ class TodoMiGobMailer:
         """
         target_url = r2_url or self.r2_url
         headers = {
-            "User-Agent": "Mozilla/5.0 (compatible; TodoMiGob/1.0; +https://todomigobgt.carlosdelcidramirez.workers.dev)",
+            "User-Agent": "Mozilla/5.0 (compatible; TodoMiGobGT/1.0; +https://todomigobgt.carlosdelcidramirez.workers.dev)",
             "Accept": "application/json"
         }
 
@@ -282,7 +282,7 @@ class TodoMiGobMailer:
 
     def get_one_news_per_category(self, news_items: Optional[List[Dict[str, Any]]] = None) -> List[Dict[str, Any]]:
         """
-        Filtra y extrae exactamente una noticia por cada categoría oficial de TODOMIGOB.
+        Filtra y extrae exactamente una noticia por cada categoría oficial de TODOMIGOBGT.
         Si news_items es None, se consultan automáticamente desde Cloudflare R2.
         """
         if news_items is None:
@@ -517,13 +517,13 @@ class TodoMiGobMailer:
         if category_news_list is None:
             category_news_list = self.get_one_news_per_category()
 
-        subject = "[TODOMIGOBGT] ¡Bienvenido/a a TODOMIGOB! - Noticias destacadas por categoría"
+        subject = "[TODOMIGOBGT] ¡Bienvenido/a a TODOMIGOBGT! - Noticias destacadas por categoría"
         html_body = self.render_welcome_html(user_name, category_news_list)
         text_body = self.render_welcome_text(user_name, category_news_list)
 
         msg = MIMEMultipart("alternative")
         msg["Subject"] = subject
-        sender_address = self.smtp_user if self.smtp_user else "notificaciones@todomigob.gob.gt"
+        sender_address = self.smtp_user if self.smtp_user else "notificaciones@todomigobgt.gob.gt"
         msg["From"] = f"{self.sender_name} <{sender_address}>"
         msg["To"] = to_email
 

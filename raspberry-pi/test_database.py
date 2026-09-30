@@ -11,7 +11,7 @@ from database import TodoMiGobDB
 class TestDatabaseUniqueEmail(unittest.TestCase):
     def setUp(self):
         self.temp_dir = tempfile.TemporaryDirectory()
-        self.db_path = os.path.join(self.temp_dir.name, "test_todomigob.db")
+        self.db_path = os.path.join(self.temp_dir.name, "test_todomigobgt.db")
         self.db = TodoMiGobDB(self.db_path)
 
     def tearDown(self):
