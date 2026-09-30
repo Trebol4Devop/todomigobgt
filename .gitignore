@@ -17,3 +17,11 @@ Thumbs.db
 .vscode/
 .idea/
 definicion/
+
+# Python cache & bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.db-journal
+*.db-wal
+*.db-shm
