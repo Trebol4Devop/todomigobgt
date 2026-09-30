@@ -1,5 +1,5 @@
 /**
- * Cliente de Conexión a la Base de Datos y API de TODOMIGOB
+ * Cliente de Conexión a la Base de Datos y API de TODOMIGOBGT
  * 
  * Conecta el frontend directamente con la base de datos (SQLite / PostgreSQL / Raspberry Pi / API REST).
  * Los endpoints y la URL del servidor son completamente configurables mediante:

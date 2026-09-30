@@ -1,0 +1,17 @@
+# Archivos ignorados en el build de Docker
+.env
+.env.*
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.git/
+.gitignore
+data/
+output/
+README*.md

@@ -1,0 +1,50 @@
+name: Publicar Imagen Docker en Docker Hub
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+    tags:
+      - "v*.*.*"
+  workflow_dispatch:
+
+jobs:
+  docker-build-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar QEMU (soporte multi-arquitectura)
+        uses: docker/setup-qemu-action@v3
+
+      - name: Configurar Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Iniciar sesión en Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Extraer metadatos y etiquetas
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ secrets.DOCKERHUB_USERNAME }}/todomigobgt-service
+          tags: |
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=semver,pattern={{version}}
+            type=sha,format=short
+
+      - name: Construir y subir imagen multi-arquitectura (ARM64 y AMD64)
+        uses: docker/build-push-action@v5
+        with:
+          context: ./raspberry-pi
+          file: ./raspberry-pi/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}

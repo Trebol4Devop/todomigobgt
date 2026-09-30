@@ -1,0 +1,80 @@
+[
+  {
+    "id": "noticia-cat-educacion-01",
+    "categoryId": "education_scholarships",
+    "urgent": false,
+    "originalUrl": "https://todomigobgt.gob.gt/educacion/becas",
+    "content": {
+      "es": {
+        "title": "Convocatoria Nacional de Becas Universitarias 2026",
+        "summary": "El Ministerio de Educación abre 2,500 plazas de becas para estudios superiores y carreras técnicas en todo el país.",
+        "citizenAction": "Completar el formulario de postulación en el portal oficial antes del 30 de septiembre."
+      }
+    }
+  },
+  {
+    "id": "noticia-cat-salud-01",
+    "categoryId": "health_wellbeing",
+    "urgent": false,
+    "originalUrl": "https://todomigobgt.gob.gt/salud/jornadas",
+    "content": {
+      "es": {
+        "title": "Jornada Integral de Salud y Vacunación",
+        "summary": "Centros de salud comunitarios estarán habilitados este fin de semana para atención preventiva y esquema de vacunación completo.",
+        "citizenAction": "Presentarse con DPI y carnet de vacunación en el puesto de salud más cercano de 8:00 a 16:00 hrs."
+      }
+    }
+  },
+  {
+    "id": "noticia-cat-social-01",
+    "categoryId": "social_programs",
+    "urgent": false,
+    "originalUrl": "https://todomigobgt.gob.gt/desarrollo-social",
+    "content": {
+      "es": {
+        "title": "Actualización del Padrón de Transferencias Monetarias del Bono Social",
+        "summary": "MIDES inicia el período de verificación presencial para familias beneficiarias de subsidios nutricionales y escolares.",
+        "citizenAction": "Acudir a la sede municipal del MIDES con copia de DPI y constancia de inscripción escolar de los hijos."
+      }
+    }
+  },
+  {
+    "id": "noticia-cat-tramites-01",
+    "categoryId": "procedures_services",
+    "urgent": false,
+    "originalUrl": "https://todomigobgt.gob.gt/tramites/licencias",
+    "content": {
+      "es": {
+        "title": "Digitalización de Solicitudes para Licencias Sanitarias",
+        "summary": "El MSPAS habilita ventanilla electrónica para consultar requisitos y dar seguimiento al trámite de establecimientos.",
+        "citizenAction": "Ingresar al portal con tu número de expediente para consultar el arancel exacto y la lista de verificación previa."
+      }
+    }
+  },
+  {
+    "id": "noticia-cat-seguridad-01",
+    "categoryId": "security_alerts",
+    "urgent": true,
+    "originalUrl": "https://todomigobgt.gob.gt/conred/alertas",
+    "content": {
+      "es": {
+        "title": "Aviso Meteorológico: Descenso de Temperaturas y Vientos Fuertes",
+        "summary": "CONRED emite alerta informativa por ingreso de sistema frontal en la región del altiplano y centro del país.",
+        "citizenAction": "Abrigarse adecuadamente, revisar techos de lámina y reportar emergencias al número 119."
+      }
+    }
+  },
+  {
+    "id": "noticia-cat-empleo-01",
+    "categoryId": "employment_development",
+    "urgent": false,
+    "originalUrl": "https://todomigobgt.gob.gt/mintrab/ferias",
+    "content": {
+      "es": {
+        "title": "Feria Nacional de Empleo y Fondos para Emprendimiento",
+        "summary": "Ministerio de Trabajo y Economía disponen de más de 3,000 vacantes y créditos blandos para microempresas.",
+        "citizenAction": "Llevar currículum vitae impreso y digital a la sede departamental de 8:30 a 17:00 hrs."
+      }
+    }
+  }
+]

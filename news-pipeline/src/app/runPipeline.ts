@@ -13,6 +13,7 @@ import { processCandidates } from "../services/processCandidates.js";
 import { publishNews } from "../services/publishNews.js";
 import type { Logger } from "../utils/logger.js";
 import type { Sleep } from "../utils/sleep.js";
+import type { NotificationDispatcher } from "../notifications/notificationDispatcher.js";
 
 export interface PipelineDependencies {
   storage: NewsStorage;
@@ -24,6 +25,7 @@ export interface PipelineDependencies {
   dryRun: boolean;
   clock?: Clock;
   sleep?: Sleep;
+  notificationDispatcher?: NotificationDispatcher;
 }
 
 export async function runPipeline(dependencies: PipelineDependencies): Promise<NewsFile> {
@@ -54,6 +56,14 @@ export async function runPipeline(dependencies: PipelineDependencies): Promise<N
     dependencies.aiProcessor,
     dependencies.logger,
   );
+
+  if (dependencies.notificationDispatcher && processed.news.length > 0) {
+    dependencies.logger.info(
+      `Despachando notificaciones por correo para ${processed.news.length} noticias nuevas`,
+    );
+    await dependencies.notificationDispatcher.dispatchNewsBatch(processed.news);
+  }
+
   dependencies.logger.info("Consolidando histórico");
   const finalFile = consolidateNews(historicalFile.news, processed.news, dependencies.clock);
 

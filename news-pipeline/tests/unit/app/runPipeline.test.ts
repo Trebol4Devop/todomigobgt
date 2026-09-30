@@ -100,4 +100,33 @@ describe("runPipeline", () => {
     ).rejects.toThrow("No fue posible consultar ninguna fuente");
     expect(storage.saveCalls).toBe(0);
   });
+
+  it("dispatches notifications when new news items are processed", async () => {
+    const storage = new FakeNewsStorage(null);
+    const previewStorage = new FakeNewsStorage();
+    const fakeDispatcher = {
+      dispatchNewsBatch: vi.fn().mockResolvedValue([]),
+      dispatchNewsItem: vi.fn(),
+    };
+
+    await runPipeline({
+      storage,
+      previewStorage,
+      sources: [new FakeNewsSource("AGN", [newCandidate])],
+      aiProcessor: new FakeAIProcessor(() => accepted),
+      logger: logger(),
+      scraperDelayMs: 0,
+      dryRun: true,
+      notificationDispatcher: fakeDispatcher as any,
+    });
+
+    expect(fakeDispatcher.dispatchNewsBatch).toHaveBeenCalledTimes(1);
+    expect(fakeDispatcher.dispatchNewsBatch).toHaveBeenCalledWith(
+      expect.arrayContaining([
+        expect.objectContaining({
+          categoryId: "social_programs",
+        }),
+      ]),
+    );
+  });
 });

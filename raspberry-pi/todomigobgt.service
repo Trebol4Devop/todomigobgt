@@ -1,0 +1,17 @@
+[Unit]
+Description=Servicio de Base de Datos y Notificaciones TODOMIGOBGT
+After=network.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/todomigobgt/raspberry-pi
+EnvironmentFile=/home/pi/todomigobgt/raspberry-pi/.env
+ExecStart=/usr/bin/python3 server.py
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
